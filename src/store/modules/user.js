@@ -28,57 +28,51 @@ const mutations = {
 }
 
 const actions = {
-  // user login
-  login({ commit }, userInfo) {
+  // 用户登录
+  async login({ commit }, userInfo) {
     const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    const result = await login({ username: username.trim(), password: password })
+    if (result.code === 20000) {
+      const { data } = result
+      commit('SET_TOKEN', data.token)
+      setToken(data.token)
+      return 'success'
+    } else {
+      return Promise.reject(new Error('登录失败'))
+    }
   },
 
-  // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  // 获取用户信息
+  async getInfo({ commit, state }) {
+    const result = await getInfo(state.token)
+    if (result.code === 20000) {
+      const { data } = result
+      if (!data) {
+        return Promise.reject(new Error('验证失败，请重新登录'))
+      }
+      const { name, avatar } = data
+      commit('SET_NAME', name)
+      commit('SET_AVATAR', avatar)
+      return data
+    } else {
+      return Promise.reject(new Error('登录失败'))
+    }
   },
 
-  // user logout
-  logout({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  // 退出登录
+  async logout({ commit, state }) {
+    const result = await logout(state.token)
+    if (result.code === 20000) {
+      removeToken() // must remove  token  first
+      resetRouter()
+      commit('RESET_STATE')
+      return 'success'
+    } else {
+      return Promise.reject(new Error('登录失败'))
+    }
   },
 
-  // remove token
+  // 移除token
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
