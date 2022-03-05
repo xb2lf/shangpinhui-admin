@@ -89,7 +89,7 @@
                 placeholder="请输入属性值名称"
                 size="mini"
                 @blur="handleShowValue(row)"
-                @keyup.native.enter="handleShowValue(row)"
+                @keyup.native.enter="$event.target.blur"
               />
               <span
                 v-else
