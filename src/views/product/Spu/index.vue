@@ -11,7 +11,7 @@
           icon="el-icon-plus"
           style="margin-bottom: 20px"
           :disabled="!category3Id"
-          @click="scene = 1"
+          @click="handleAddSpu"
           >添加SPU</el-button
         >
         <el-table :data="spuList" style="width: 100%" border>
@@ -31,28 +31,28 @@
                 type="success"
                 icon="el-icon-plus"
                 size="mini"
-                @click="scene = 2"
+                @click="handleAddSku"
               />
               <hint-button
                 title="修改spu"
                 type="warning"
                 icon="el-icon-edit"
                 size="mini"
-                @click="scene = 1"
+                @click="handleUpdateSpu(row)"
               />
               <hint-button
                 title="查看当前spu的sku列表"
                 type="info"
                 icon="el-icon-info"
                 size="mini"
-                @click="handleDeleteTradeMark(row)"
+                @click="handleShowSkuList(row)"
               />
               <hint-button
                 title="删除spu"
                 type="danger"
                 icon="el-icon-delete"
                 size="mini"
-                @click="handleDeleteTradeMark(row)"
+                @click="handleDeleteSpu(row)"
               />
             </template>
           </el-table-column>
@@ -128,6 +128,17 @@ export default {
     handleCurrentChange(val) {
       this.page = val;
       this.getSpuList();
+    },
+    handleAddSpu() {
+      this.scene = 1;
+    },
+    handleUpdateSpu(row) {
+      this.scene = 1;
+    },
+    handleDeleteSpu(row) {},
+    handleShowSkuList(row) {},
+    handleAddSku() {
+      this.scene = 2;
     },
   },
 };
