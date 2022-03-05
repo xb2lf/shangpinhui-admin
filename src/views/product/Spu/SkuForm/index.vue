@@ -196,7 +196,7 @@ export default {
       Object.assign(this._data, this.$options.data());
     },
     async handleSave() {
-      const { attrInfoList, spuSaleAttrList,imageList skuInfo } = this;
+      const { attrInfoList, spuSaleAttrList, imageList, skuInfo } = this;
       // 整理平台属性
       skuInfo.skuAttrValueList = attrInfoList.reduce((prev, item) => {
         if (item.attrIdAndValueId) {
@@ -215,13 +215,13 @@ export default {
         return prev;
       }, []);
       // 整理图片列表
-      skuInfo.skuImageList = imageList.map(item => {
+      skuInfo.skuImageList = imageList.map((item) => {
         return {
-            imgName: item.imgName,
-            imgUrl: item.imgUrl,
-            isDefault: item.isDefault,
-            spuImgId: item.id,
-          },
+          imgName: item.imgName,
+          imgUrl: item.imgUrl,
+          isDefault: item.isDefault,
+          spuImgId: item.id,
+        };
       });
       // 发起请求
       const result = await this.$API.spu.reqAddUpdateSkuInfo(skuInfo);
