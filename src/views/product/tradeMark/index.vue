@@ -2,7 +2,7 @@
   <div>
     <el-button
       type="primary"
-      class="el-icon-plus"
+      icon="el-icon-plus"
       style="margin: 10px 0"
       @click="handleShowDialog"
       >添加</el-button
@@ -25,14 +25,14 @@
         <template slot-scope="{ row, $index }">
           <el-button
             type="warning"
-            class="el-icon-edit"
+            icon="el-icon-edit"
             size="mini"
             @click="handleUpdateTradeMark(row)"
             >修改</el-button
           >
           <el-button
             type="danger"
-            class="el-icon-delete"
+            icon="el-icon-delete"
             size="mini"
             @click="handleDeleteTradeMark(row)"
             >删除</el-button

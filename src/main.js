@@ -18,6 +18,8 @@ import '@/permission' // permission control
 // 引入相关API接口
 import API from '@/api'
 
+import { CategorySelect, HintButton } from '@/components'
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -37,6 +39,10 @@ Vue.prototype.$API = API
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
+
+// 注册全局组件
+Vue.component(CategorySelect.name, CategorySelect)
+Vue.component(HintButton.name, HintButton)
 
 Vue.config.productionTip = false
 
