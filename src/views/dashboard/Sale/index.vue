@@ -117,7 +117,7 @@ export default {
               this.title == "销售额"
                 ? this.listState.orderFullYear
                 : this.listState.userFullYear,
-            color: "yellowgreen",
+            color: "#5271CB",
           },
         ],
       });
@@ -159,7 +159,7 @@ export default {
             type: "bar",
             barWidth: "60%",
             data: this.listState.orderFullYear,
-            color: "yellowgreen",
+            color: "#5271CB",
           },
         ],
       });

@@ -52,42 +52,112 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
+  }
+]
+
+export const asyncRoutes = [
+  {
+    name: 'Acl',
+    path: '/acl',
+    component: Layout,
+    redirect: '/acl/user/list',
+    meta: {
+      title: '权限管理',
+      icon: 'el-icon-lock'
+    },
+    children: [
+      {
+        name: 'User',
+        path: 'user/list',
+        component: () => import('@/views/acl/User/list'),
+        meta: {
+          title: '用户管理'
+        }
+      },
+      {
+        name: 'Role',
+        path: 'role/list',
+        component: () => import('@/views/acl/Role/list'),
+        meta: {
+          title: '角色管理'
+        }
+      },
+      {
+        name: 'RoleAuth',
+        path: 'role/auth/:id',
+        component: () => import('@/views/acl/Role/roleAuth'),
+        meta: {
+          activeMenu: '/acl/role/list',
+          title: '角色授权'
+        },
+        hidden: true
+      },
+      {
+        name: 'Permission',
+        path: 'permission/list',
+        component: () => import('@/views/acl/Permission/list'),
+        meta: {
+          title: '菜单管理'
+        }
+      }
+    ]
   },
   {
     path: '/product',
     component: Layout,
-    name: 'product',
+    name: 'Product',
     meta: { title: '商品管理', icon: 'el-icon-goods' },
     children: [
       {
         path: 'trademark',
-        name: 'trademark',
+        name: 'Trademark',
         component: () => import('@/views/product/tradeMark/index'),
         meta: { title: '品牌管理' }
       },
       {
         path: 'attr',
-        name: 'attr',
+        name: 'Attr',
         component: () => import('@/views/product/Attr/index'),
         meta: { title: '平台属性管理' }
       },
       {
         path: 'spu',
-        name: 'spu',
+        name: 'Spu',
         component: () => import('@/views/product/Spu/index'),
         meta: { title: 'Spu管理' }
       },
       {
         path: 'sku',
-        name: 'sku',
+        name: 'Sku',
         component: () => import('@/views/product/Sku/index'),
         meta: { title: 'Sku管理' }
       }
     ]
   },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '/test',
+    component: Layout,
+    name: 'Test',
+    meta: { title: '测试管理', icon: 'el-icon-goods' },
+    children: [
+      {
+        path: 'test1',
+        name: 'Test1',
+        component: () => import('@/views/Test/Test1'),
+        meta: { title: '测试管理1' }
+      },
+      {
+        path: 'test2',
+        name: 'Test2',
+        component: () => import('@/views/Test/Test2'),
+        meta: { title: '测试管理2' }
+      }
+    ]
+  }
 ]
+
+// 任意路由：当路径出现错误的时候重定向404
+export const anyRoutes = { path: '*', redirect: '/404', hidden: true }
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
